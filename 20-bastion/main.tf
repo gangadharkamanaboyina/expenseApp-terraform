@@ -28,18 +28,18 @@ module "bastion" {
  }
   
 
-resource "aws_ebs_volume" "bastion_data_volume" {
-  availability_zone = module.bastion.availability_zone
-  size              = 30
-  type              = "gp3"
+# resource "aws_ebs_volume" "bastion_data_volume" {
+#   availability_zone = module.bastion.availability_zone
+#   size              = 30
+#   type              = "gp3"
 
-  tags = merge(var.tags, {
-    Name = "${local.common_name}-bastion-data"
-  })
-}
+#   tags = merge(var.tags, {
+#     Name = "${local.common_name}-bastion-data"
+#   })
+# }
 
-resource "aws_volume_attachment" "bastion_data_attach" {
-  device_name = "/dev/xvdf"
-  volume_id   = aws_ebs_volume.bastion_data_volume.id
-  instance_id = module.bastion.instance_id
-}
+# resource "aws_volume_attachment" "bastion_data_attach" {
+#   device_name = "/dev/xvdf"
+#   volume_id   = aws_ebs_volume.bastion_data_volume.id
+#   instance_id = module.bastion.instance_id
+# }
