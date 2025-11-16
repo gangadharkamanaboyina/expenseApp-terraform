@@ -12,7 +12,7 @@ module "mysql" {
 
 resource "terraform_data" "mysql" {
   triggers_replace = [
-    module.mysql.id
+    module.mysql.instance_id
   ]
   connection {
       type        = "ssh"
@@ -21,6 +21,9 @@ resource "terraform_data" "mysql" {
       host        = module.mysql.private_ip
     }
   provisioner "remote-exec" {
-    command = "echo Hello"
+    inline = [
+       "echo Hello"
+    ]
+    
   }
 }
