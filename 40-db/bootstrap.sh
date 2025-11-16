@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-sudo dnf install -y ansible git >/dev/null 2>&1
+sudo dnf install -y ansible  >/dev/null 2>&1
 
 REPO="https://github.com/gangadharkamanaboyina/expenseApp-ansible.git"
 DIR="/tmp/expenseApp-ansible"
