@@ -24,3 +24,22 @@ resource "aws_security_group_rule" "mysql_bastion" {
   protocol                      = "tcp"
   source_security_group_id      = local.bastion_sg_id
 }
+
+resource "aws_security_group_rule" "backend_bastion" {
+  type                          = "ingress"
+  security_group_id             = local.backend_sg_id
+  from_port                     = 22
+  to_port                       = 22
+  protocol                      = "tcp"
+  source_security_group_id      = local.bastion_sg_id
+}
+
+resource "aws_security_group_rule" "frontend_bastion" {
+  type                          = "ingress"
+  security_group_id             = local.frontend_sg_id
+  from_port                     = 22
+  to_port                       = 22
+  protocol                      = "tcp"
+  source_security_group_id      = local.bastion_sg_id
+}
+
