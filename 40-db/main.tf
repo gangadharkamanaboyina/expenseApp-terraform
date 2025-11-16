@@ -8,28 +8,29 @@ module "mysql" {
   name              = var.name
   tags              = var.tags
   subnet_id = local.db_subnet_ids[0]
+  user_data = file("bootstrap.sh")
 }
 
-resource "terraform_data" "mysql" {
-  triggers_replace = [
-    module.mysql.instance_id
-  ]
-  connection {
-      type        = "ssh"
-      user        = "ec2-user"
-      password = "DevOps321"
-      host        = module.mysql.private_ip
-    }
+# resource "terraform_data" "mysql" {
+#   triggers_replace = [
+#     module.mysql.instance_id
+#   ]
+#   connection {
+#       type        = "ssh"
+#       user        = "ec2-user"
+#       password = "DevOps321"
+#       host        = module.mysql.private_ip
+#     }
   
-  provisioner "file" {
-    source = "bootstrap.sh"
-    destination = "/tmp/bootstrap.sh"
-  }
-  provisioner "remote-exec" {
-    inline = [
-       "chmod +x /tmp/bootstrap.sh",
-       "sudo sh bootstrap.sh"
-    ]
+#   provisioner "file" {
+#     source = "bootstrap.sh"
+#     destination = "/tmp/bootstrap.sh"
+#   }
+#   provisioner "remote-exec" {
+#     inline = [
+#        "chmod +x /tmp/bootstrap.sh",
+#        "sudo sh bootstrap.sh"
+#     ]
     
-  }
-}
+#   }
+# }
