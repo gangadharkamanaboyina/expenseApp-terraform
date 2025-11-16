@@ -13,8 +13,7 @@ module "mysql" {
 
 resource "terraform_data" "mysql" {
   triggers_replace = {
-    instance = module.mysql.instance_id
-    ansible_version = local.ansible_commit
+    always = timestamp()
   }
 
   connection {
