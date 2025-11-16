@@ -14,4 +14,4 @@ git clone -q $REPO $DIR >/dev/null 2>&1
 cd $DIR
 
 # Run playbook with ONLY essential output
-ansible-playbook main.yaml -c local -e "component=mysql" --quiet
+ansible-playbook main.yaml -i inventory.ini -e "component=mysql" --quiet
