@@ -17,5 +17,5 @@ variable "tags" {
 
 variable "names" {
   type = list
-  default = ["backend", "mysql", "frontend", "bastion"]
+  default = ["backend", "mysql", "frontend", "bastion", "frontend_lb", "backend_lb"]
 }
