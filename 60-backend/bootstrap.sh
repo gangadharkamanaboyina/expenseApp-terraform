@@ -25,6 +25,6 @@ cd "$TMP"
 ansible-playbook main.yaml \
     -c local \
     -i inventory.ini \
-    -e "component=mysql" 
+    -e "component=backend" 
 
 echo "=== MySQL Provisioning Completed at $(date) ===" >> "$LOG_FILE"
