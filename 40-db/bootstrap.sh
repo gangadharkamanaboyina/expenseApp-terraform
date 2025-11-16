@@ -8,7 +8,6 @@
 #   -e "component=mysql"
 
 #!/bin/bash
-set -euo pipefail
 
 REPO="https://github.com/gangadharkamanaboyina/expenseApp-ansible.git"
 TMP="/tmp/expenseApp-ansible"
