@@ -13,7 +13,7 @@ module "mysql" {
 
 resource "terraform_data" "mysql" {
   triggers_replace = {
-    always = timestamp()
+    instance = module.mysql.instance_id
   }
 
   connection {
