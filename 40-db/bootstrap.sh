@@ -1,29 +1,31 @@
-# #!/bin/bash
-
-# sudo dnf install -y ansible
-
-# ansible-pull \
-#   -U https://github.com/gangadharkamanaboyina/expenseApp-ansible.git \
-#   main.yaml \
-#   -e "component=mysql"
-
 #!/bin/bash
+
+set -euo pipefail
 
 REPO="https://github.com/gangadharkamanaboyina/expenseApp-ansible.git"
 TMP="/tmp/expenseApp-ansible"
+LOG_DIR="/var/logs/expenseApp"
+LOG_FILE="$LOG_DIR/mysql.log"
 
-sudo dnf install -y ansible
+sudo dnf install -y ansible git >/dev/null 2>&1
 
-mkdir -p /var/logs/expenseApp
-cd /var/logs/expenseApp
-touch mysql.log
-# Fresh clone each run (or git pull if you prefer)
-rm -rf "${TMP}"
-git clone "${REPO}" "${TMP}" > /var/logs/expenseApp/mysql.log
-cd "${TMP}"
+# Create log folder
+mkdir -p "$LOG_DIR"
 
-# run playbook locally using repo inventory, force local connection
-# -c local forces execution on localhost, so groups that map to localhost work fine
-ansible-playbook main.yaml -i inventory.ini -e"component=mysql"
+# Clear previous logs
+echo "=== MySQL Provisioning Started at $(date) ===" > "$LOG_FILE"
 
+# Fresh clone (silent)
+rm -rf "$TMP" >/dev/null 2>&1
+git clone -q "$REPO" "$TMP" >> "$LOG_FILE" 2>&1
 
+cd "$TMP"
+
+# Run Ansible locally (silent in console, logs only in file)
+ansible-playbook main.yaml \
+    -c local \
+    -i inventory.ini \
+    -e "component=mysql" \
+    >> "$LOG_FILE" 2>&1
+
+echo "=== MySQL Provisioning Completed at $(date) ===" >> "$LOG_FILE"
