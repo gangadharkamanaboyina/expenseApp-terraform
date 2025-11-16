@@ -14,9 +14,12 @@ TMP="/tmp/expenseApp-ansible"
 
 sudo dnf install -y ansible
 
+mkdir -p /var/logs/expenseApp
+cd /var/logs/expenseApp
+touch mysql.log
 # Fresh clone each run (or git pull if you prefer)
 rm -rf "${TMP}"
-git clone "${REPO}" "${TMP}"
+git clone "${REPO}" "${TMP}" > /var/logs/expenseApp/mysql.log
 cd "${TMP}"
 
 # run playbook locally using repo inventory, force local connection
