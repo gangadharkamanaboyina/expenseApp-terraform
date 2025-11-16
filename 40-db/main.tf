@@ -1,0 +1,26 @@
+module "mysql" {
+  source            = "github.com/gangadharkamanaboyina/terraform-module-ec2.git?ref=main"
+  ami_id            = local.ami_id
+  instance_type     = local.instance_type
+  sg_ids            = [local.sg_id]
+  project           = var.project
+  env               = var.env
+  name              = var.name
+  tags              = var.tags
+  subnet_id = local.db_subnet_ids[0]
+}
+
+resource "terraform_data" "mysql" {
+  triggers_replace = [
+    module.mysql.id
+  ]
+  connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      password = "DevOps321"
+      host        = module.mysql.private_ip
+    }
+  provisioner "remote-exec" {
+    command = "echo Hello"
+  }
+}
