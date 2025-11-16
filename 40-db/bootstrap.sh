@@ -1,9 +1,8 @@
 #!/bin/bash
 
-sudo dnf install ansible -y
+sudo dnf install -y ansible
 
 ansible-pull \
   -U https://github.com/gangadharkamanaboyina/expenseApp-ansible.git \
   main.yaml \
-  --limit "localhost" \
   -e "component=mysql"
