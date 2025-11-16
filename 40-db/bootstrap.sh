@@ -1,17 +1,26 @@
-#!/bin/bash
-set -euo pipefail
+# #!/bin/bash
 
-sudo dnf install -y ansible  >/dev/null 2>&1
+# sudo dnf install -y ansible
+
+# ansible-pull \
+#   -U https://github.com/gangadharkamanaboyina/expenseApp-ansible.git \
+#   main.yaml \
+#   -e "component=mysql"
+
+#!/bin/bash
 
 REPO="https://github.com/gangadharkamanaboyina/expenseApp-ansible.git"
-DIR="/tmp/expenseApp-ansible"
+TMP="/tmp/expenseApp-ansible"
 
-rm -rf $DIR >/dev/null 2>&1
+sudo dnf install -y ansible
 
-# Clone silently
-git clone -q $REPO $DIR >/dev/null 2>&1
+# Fresh clone each run (or git pull if you prefer)
+rm -rf "${TMP}"
+git clone "${REPO}" "${TMP}"
+cd "${TMP}"
 
-cd $DIR
+# run playbook locally using repo inventory, force local connection
+# -c local forces execution on localhost, so groups that map to localhost work fine
+ansible-playbook main.yaml -i inventory.ini -e"component=mysql"
 
-# Run playbook with ONLY essential output
-ansible-playbook main.yaml -i inventory.ini -e "component=mysql" --quiet
+
