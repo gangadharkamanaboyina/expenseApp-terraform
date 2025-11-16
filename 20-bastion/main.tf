@@ -8,6 +8,7 @@ module "bastion" {
   name              = var.name
   tags              = var.tags
   subnet_id = local.public_subnet_ids[0]
+  user_data = file("bastion.sh")
 
 #     provisioner "remote-exec" {
 #     inline = [
