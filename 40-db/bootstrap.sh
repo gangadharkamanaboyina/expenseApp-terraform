@@ -21,6 +21,6 @@ cd "${TMP}"
 
 # run playbook locally using repo inventory, force local connection
 # -c local forces execution on localhost, so groups that map to localhost work fine
-ansible-playbook main.yaml "component=mysql"
+ansible-playbook main.yaml -i inventory.ini -e "component=mysql"
 
 
