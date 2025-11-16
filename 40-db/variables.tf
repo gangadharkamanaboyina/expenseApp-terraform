@@ -16,5 +16,5 @@ variable "tags" {
 }
 
 variable "name" {
-    default = "bastion"
+    default = "mysql"
 }
