@@ -20,9 +20,15 @@ resource "terraform_data" "mysql" {
       password = "DevOps321"
       host        = module.mysql.private_ip
     }
+  
+  provisioner "file" {
+    source = "bootstrap.sh"
+    destination = "/tmp/bootstrap.sh"
+  }
   provisioner "remote-exec" {
     inline = [
-       "echo Hello"
+       "chmod +x /tmp/bootstrap.sh"
+       "sudo sh bootstrap.sh"
     ]
     
   }
