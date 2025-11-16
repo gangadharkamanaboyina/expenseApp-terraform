@@ -5,4 +5,7 @@ ansible-pull \
   -U https://github.com/gangadharkamanaboyina/expenseApp-ansible.git \
   main.yaml \
   -i inventory.ini \
+  --inventory-file=inventory.ini \
+  --limit localhost \
   -e "component=mysql"
+
