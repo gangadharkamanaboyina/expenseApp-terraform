@@ -26,6 +26,7 @@ module "bastion" {
 #     }
 #   }
  }
+  
 
 resource "aws_ebs_volume" "bastion_data_volume" {
   availability_zone = module.bastion.availability_zone
