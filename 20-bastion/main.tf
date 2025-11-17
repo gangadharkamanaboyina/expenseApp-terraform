@@ -9,6 +9,13 @@ module "bastion" {
   tags              = var.tags
   subnet_id = local.public_subnet_ids[0]
   user_data = file("bastion.sh")
+  iam_instance_profile = aws_iam_instance_profile.bastion_admin.name
+}
+
+resource "aws_iam_instance_profile" "bastion_admin" {
+  name = "bastion_admin"
+  role = "BastionTerraformAdmin"
+}
 
 #     provisioner "remote-exec" {
 #     inline = [
@@ -26,7 +33,6 @@ module "bastion" {
 #       host        = self.public_ip
 #     }
 #   }
- }
   
 
 # resource "aws_ebs_volume" "bastion_data_volume" {
